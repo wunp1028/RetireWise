@@ -13,6 +13,7 @@ import {
   Settings,
   ShieldCheck,
   TrendingUp,
+  Compass,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -21,6 +22,12 @@ const NAV_ITEMS = [
     href: '/',
     icon: LayoutDashboard,
     badge: '即時試算',
+  },
+  {
+    label: '新手指南與解讀',
+    href: '/guide',
+    icon: Compass,
+    badge: '必看',
   },
   {
     label: '家庭基本設定',
