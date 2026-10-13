@@ -236,23 +236,64 @@ export default function GuidePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* KPI 1: 預估資產峰值 */}
-            <div className="glass-panel rounded-2xl p-5 border border-slate-800 space-y-2.5">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-sm text-slate-100 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-emerald-400" />
-                  <span>預估資產峰值 (Peak Net Worth)</span>
+            {/* KPI 1: 預估資產峰值 (詳細計算原理與年化報酬機制) */}
+            <div className="glass-panel rounded-2xl p-5 border border-slate-800 space-y-3.5 md:col-span-2">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+                <span className="font-bold text-sm sm:text-base text-slate-100 flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-emerald-400" />
+                  <span>預估資產峰值 (Peak Net Worth) 是如何計算出來的？</span>
                 </span>
-                <span className="text-[11px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 font-mono">
-                  高資產頂點
+                <span className="text-[11px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 font-mono self-start sm:self-auto border border-emerald-500/20">
+                  全生命週期動態複利迭代
                 </span>
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                <strong>定義：</strong>您一生中累積財富的最高峰水位與發生的年齡（通常發生在剛退休前後，即工作收入累積完畢、開始轉為純提領的前夕）。
-              </p>
-              <div className="p-3 rounded-xl bg-slate-900/90 text-xs space-y-1 text-slate-400">
-                <div className="text-slate-200 font-semibold">💡 判讀建議：</div>
-                <div>若峰值金額過低，代表累積期複利效能不足；若峰值過高（例如累積至上億但晚年留下過多），可思考是否適度放寬生前生活品質或提前退休。</div>
+
+              {/* 核心定義與運算公式 */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 text-xs">
+                {/* 1. 逐年複利滾存公式 */}
+                <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="font-bold text-emerald-400 flex items-center gap-1.5">
+                    <span>1. 逐年複利與現金流公式</span>
+                  </div>
+                  <div className="p-2 rounded-lg bg-slate-950 font-mono text-[11px] text-emerald-300 border border-slate-800/80 leading-relaxed">
+                    期末淨資產 = 期初淨資產 + 當年度投資收益 + 當年度淨儲蓄(總收入 - 總支出)
+                  </div>
+                  <p className="text-slate-400 leading-relaxed">
+                    系統自您的<strong>當前年齡</strong>逐年演算至<strong>預期壽命（例如 90 歲）</strong>。在所有年份中，挑出「期末淨資產數值最大」的那一年，即為<strong>預估資產峰值</strong>，該年份即為<strong>峰值年齡</strong>。
+                  </p>
+                </div>
+
+                {/* 2. 每年的年化報酬率怎麼來的 */}
+                <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="font-bold text-cyan-400 flex items-center gap-1.5">
+                    <span>2. 每年的年化報酬率計算</span>
+                  </div>
+                  <div className="p-2 rounded-lg bg-slate-950 font-mono text-[11px] text-cyan-300 border border-slate-800/80 leading-relaxed">
+                    加權年化報酬率 = Σ (各項資產市值佔比 × 該資產期望年報酬率)
+                  </div>
+                  <p className="text-slate-400 leading-relaxed">
+                    並非套用死板固定利率！而是依您在資產頁設定的股票 ETF (如 7.5%)、公債 (如 4%)、現金 (如 1.5%) 按市值比例動態加權。若勾選「股息滾入再投入」，收益每年自動併入本金持續利滾利。
+                  </p>
+                </div>
+
+                {/* 3. 為什麼峰值出現在剛退休那一刻？ */}
+                <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="font-bold text-indigo-400 flex items-center gap-1.5">
+                    <span>3. 為什麼峰值在退休當下？</span>
+                  </div>
+                  <p className="text-slate-400 leading-relaxed">
+                    • <strong>退休前 (累積期)</strong>：薪資儲蓄持續注入，加上本金複利高速成長，資產水位於退休前夕達到歷史頂點。<br />
+                    • <strong>退休後 (提領期)</strong>：工作薪資停止，轉為靠資產提領生活費，提領大於新增收入，曲線開始平緩遞減。兩者交界點正是財富巔峰！
+                  </p>
+                </div>
+              </div>
+
+              {/* 判讀建議 */}
+              <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-slate-300">
+                <div className="flex items-center gap-2">
+                  <span className="text-emerald-400 font-bold">💡 實務看盤建議：</span>
+                  <span className="text-slate-400">若峰值過低代表複利本金或儲蓄不足；若峰值過高（如累積過億但晚年留下過多），可考慮提前退休或提高生前生活品質。</span>
+                </div>
               </div>
             </div>
 
